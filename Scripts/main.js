@@ -14,11 +14,13 @@ window.onload = function () {
 
     // Load the list of already generated numbers
     extractedNumbers = JSON.parse(localStorage.getItem("extractedNumbers"));
+    if (extractedNumbers == null) {
+        extractedNumbers = [];
+    }
     // Draw the numbers that have already been generated
     for (let i = 0; i < extractedNumbers.length; i++) {
         highlightNumber(extractedNumbers[i]);
     }
-
 }
 
 // Function to run when the button is clicked
@@ -41,15 +43,10 @@ export function resetTombola() {
         console.log(extractedNumbers)
         return;
     }
-    // Reset the list of already generated numbers
-    extractedNumbers = [];
-    localStorage.setItem("extractedNumbers", JSON.stringify(extractedNumbers));
-    // Destroy the table
-    let table = document.getElementById("numberTable");
-    table.innerHTML = "";
-    // Create the table again
-    createTable(9, 10);
-    console.log("Tombola resettata");
+    // Delete local storage
+    localStorage.removeItem("extractedNumbers");
+    // Reload the page
+    location.reload()
 }
 
 // Add event listener to the button
