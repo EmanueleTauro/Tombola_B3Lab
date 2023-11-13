@@ -8,18 +8,25 @@
 </head>
 
 <body>
+<!-- Define snow effect -->
 <div id="snow"></div>
+<!-- Define popup that appears only when a number is extracted -->
+<div id="popup" class="popupTombola">
+    <p id="popupNumber"></p>
+    <p id="popupText"></p>
+</div>
+<!-- Define Tombola table -->
 <div id="tableContainer">
     <table id="numberTable">
         <!-- Table will be generated using JavaScript -->
     </table>
 </div>
+<!-- Define buttons -->
 <div id="buttonContainer">
-    <button id="startButton">Start</button>
+    <button id="startButton">Pesca</button>
+    <button id="resetButton">Nuova Tombolata</button>
 </div>
 
-<script type="module" src="Scripts/main.js">
-
-</script>
+<script type="module" src="Scripts/main.js"></script>
 </body>
 </html>
