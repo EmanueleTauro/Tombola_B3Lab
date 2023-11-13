@@ -1,7 +1,7 @@
 import {spawn_snow, spawnSnowCSS} from "./snow.js";
 import {createTable, drawRandomNumber, highlightNumber, popupNumber} from "./tombola.js";
 
-let alreadyGenerated = [];
+let extractedNumbers = [];
 let snowflakes_count = 300;
 
 window.onload = function () {
@@ -12,12 +12,21 @@ window.onload = function () {
     // Create the table for Tombola
     createTable(9, 10);
 
+    // Load the list of already generated numbers
+    extractedNumbers = JSON.parse(localStorage.getItem("extractedNumbers"));
+    // Draw the numbers that have already been generated
+    for (let i = 0; i < extractedNumbers.length; i++) {
+        highlightNumber(extractedNumbers[i]);
+    }
+
 }
 
 // Function to run when the button is clicked
 export function drawTombolaNumber() {
-    let number = drawRandomNumber(alreadyGenerated);
-    alreadyGenerated.push(number);
+    let number = drawRandomNumber(extractedNumbers);
+    extractedNumbers.push(number);
+    localStorage.setItem("extractedNumbers", JSON.stringify(extractedNumbers));
+    console.log(extractedNumbers)
     console.log (number);
     popupNumber(number);
     highlightNumber(number);
@@ -29,10 +38,17 @@ export function resetTombola() {
     let confirmation = confirm("Sei sicuro di voler resettare la Tombola?");
     if (!confirmation) {
         console.log("Tombola non resettata")
-        console.log(alreadyGenerated)
+        console.log(extractedNumbers)
         return;
     }
-    alreadyGenerated = [];
+    // Reset the list of already generated numbers
+    extractedNumbers = [];
+    localStorage.setItem("extractedNumbers", JSON.stringify(extractedNumbers));
+    // Destroy the table
+    let table = document.getElementById("numberTable");
+    table.innerHTML = "";
+    // Create the table again
+    createTable(9, 10);
     console.log("Tombola resettata");
 }
 
