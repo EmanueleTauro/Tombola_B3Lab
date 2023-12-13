@@ -52,3 +52,17 @@ export function resetTombola() {
 // Add event listener to the button
 document.getElementById("startButton").addEventListener("click", drawTombolaNumber);
 document.getElementById("resetButton").addEventListener("click", resetTombola);
+
+// Add event listener to the keyboard
+// If spacebar is pressed, draw a number
+document.addEventListener("keydown", function (event) {
+    if (event.code === "Space") {
+        drawTombolaNumber();
+    }
+});
+// If R is pressed, reset the tombola
+document.addEventListener("keydown", function (event) {
+    if (event.code === "KeyR") {
+        resetTombola();
+    }
+});
